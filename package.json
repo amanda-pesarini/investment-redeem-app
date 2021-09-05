@@ -1,12 +1,12 @@
 {
-  "name": "investment-rescue-app",
+  "name": "investment-redeem-app",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test --browsers ChromeHeadless"
   },
   "private": true,
   "dependencies": {
@@ -18,6 +18,10 @@
     "@angular/platform-browser": "~12.2.0",
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
+    "@ngx-translate/core": "^13.0.0",
+    "bootstrap": "^5.1.0",
+    "ngx-bootstrap": "^7.0.0",
+    "ngx-currency": "^2.5.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

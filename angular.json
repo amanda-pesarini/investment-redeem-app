@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "investment-rescue-app": {
+    "investment-redeem-app": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/investment-rescue-app",
+            "outputPath": "dist/investment-redeem-app",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -27,6 +27,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -68,10 +69,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "investment-rescue-app:build:production"
+              "browserTarget": "investment-redeem-app:build:production"
             },
             "development": {
-              "browserTarget": "investment-rescue-app:build:development"
+              "browserTarget": "investment-redeem-app:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -79,12 +80,13 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "investment-rescue-app:build"
+            "browserTarget": "investment-redeem-app:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
+            "codeCoverage": true,
             "main": "src/test.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
@@ -102,5 +104,5 @@
       }
     }
   },
-  "defaultProject": "investment-rescue-app"
+  "defaultProject": "investment-redeem-app"
 }

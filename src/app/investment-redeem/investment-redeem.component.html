@@ -1,0 +1,87 @@
+<div class="container mt-5">
+  <ng-container *ngIf="detailInvestment$ | async as detailInvestment">
+    <div class="card">
+      <div class="card-header"><h3>RESGATE</h3></div>
+      <div class="card-body">
+        <div class="container justify-content-center">
+          <p class="subtitle">DADOS DO INVESTIMENTO</p>
+          <div class="card mt-1">
+            <div class="row m-2 p-2 text-center">
+              <div class="col-md">
+                Nome
+                <div class="col-sm detail">{{ detailInvestment.nome }}</div>
+              </div>
+              <div class="col-md">
+                Saldo total disponível
+                <div class="col-sm detail">
+                  {{ detailInvestment.saldoTotalDisponivel | realCurrency }}
+                </div>
+              </div>
+              <div class="col-md">
+                Valor total a resgatar
+                <div class="col-sm detail">{{ totalRedeem | realCurrency }}</div>
+              </div>
+            </div>
+          </div>
+
+        <p class="subtitle mt-4">RESGATE DO SEU JEITO</p>
+        <div class="card mt-1">
+        <div *ngIf="form" [formGroup]="form">
+          <table class="table table-hover mt-4">
+            <thead>
+              <tr>
+                <th>AÇÃO</th>
+                <th>SALDO ACUMULADO</th>
+                <th>VALOR A RESGATAR</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let action of actions">
+                <td>{{ action.nome }}</td>
+                <td>
+                  {{ action.valor | realCurrency }}
+                </td>
+                <td>
+                  <div class="row">
+                    <div class="col-sm">
+                      <input
+                        type="text"
+                        currencyMask
+                        formControlName="{{ action.nome }}"
+                        [ngClass]="{
+                          'input-error': form.get(action.nome)!.errors
+                            ?.invalidValue
+                        }"
+                      />
+                      <div
+                        *ngIf="form.get(action.nome)!.errors?.invalidValue"
+                        class="error"
+                      >
+                        Valor não pode ser maior que
+                        {{ action.valor | realCurrency }}
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col">
+            <button type="button" class="btn btn-danger" (click)="goToList()">
+                CANCELAR
+            </button>
+        </div>
+            <div class="col text-end">
+              <button type="button" class="btn btn-primary" (click)="validateForm()">
+                CONFIRMAR RESGATE
+              </button>
+            </div>
+    </div>
+      </div>
+    </div>
+    </div>
+  </ng-container>
+</div>

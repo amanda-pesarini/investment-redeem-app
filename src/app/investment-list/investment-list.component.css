@@ -1,0 +1,8 @@
+.table tr {
+    cursor: pointer;
+}
+
+.irredeemable-investment {
+    background-color: #ccc;
+    cursor: not-allowed !important;
+}

@@ -1,0 +1,27 @@
+<div class="container mt-5">
+    <div class="card">
+      <div class="card-header"><h3>INVESTIMENTOS</h3></div>
+      <div class="card-body">
+        <ng-container *ngIf="(investments$ | async) as investments">
+        <table class="table table-hover mt-4">
+          <thead>
+            <tr>
+              <th>NOME</th>
+              <th>OBJETIVO</th>
+              <th>SALDO TOTAL DISPONÍVEL</th>
+              <th>CARÊNCIA</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let investment of investments" [ngClass]="{'irredeemable-investment': investment.indicadorCarencia === 'S'}" (click)="routeToRedeem(investment)">
+              <td>{{ investment.nome }}</td>
+              <td>{{ investment.objetivo }}</td>
+              <td>{{ investment.saldoTotalDisponivel | realCurrency }}</td>
+              <td>{{ investment.indicadorCarencia }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+      </div>
+    </div>
+  </div>
