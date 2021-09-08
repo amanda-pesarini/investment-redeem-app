@@ -21,8 +21,7 @@ import { Investment } from '../shared/models/investment.model';
 export class InvestmentRedeemComponent implements OnInit, OnDestroy {
   unsubscribe$ = new Subject<void>();
   detailInvestment$!: Observable<Investment>;
-  totalRedeem!: number;
-  sumTotalRedeem: number = 0;
+  totalRedeem: number = 0;
   form!: FormGroup;
   detailInvestment!: Investment;
   actions!: Action[];
@@ -51,7 +50,6 @@ export class InvestmentRedeemComponent implements OnInit, OnDestroy {
     this.detailInvestment$
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((detail) => {
-        this.totalRedeem = detail.saldoTotalDisponivel;
         this.detailInvestment = detail;
       });
   }
@@ -74,8 +72,7 @@ export class InvestmentRedeemComponent implements OnInit, OnDestroy {
         distinctUntilChanged(),
         switchMap((value) => {
           this.errors = [];
-          this.totalRedeem = this.detailInvestment.saldoTotalDisponivel;
-          this.sumTotalRedeem = 0;
+          this.totalRedeem = 0;
           this.actions.forEach((action) => {
             if (value[action.nome] > action.valor!) {
               this.form.controls[action.nome].setErrors({ invalidValue: true });
@@ -83,8 +80,7 @@ export class InvestmentRedeemComponent implements OnInit, OnDestroy {
               return;
             }
             if (value[action.nome]) {
-              this.sumTotalRedeem = this.sumTotalRedeem + value[action.nome];
-              this.totalRedeem = this.totalRedeem - this.sumTotalRedeem;
+              this.totalRedeem = this.totalRedeem + value[action.nome];
             }
           });
           return of({});
@@ -94,7 +90,7 @@ export class InvestmentRedeemComponent implements OnInit, OnDestroy {
 
   validateForm(): void {
     const valueForm = this.form.getRawValue();
-    const isEmpty = Object.values(valueForm).every(x => x === null || x === '');
+    const isEmpty = Object.values(valueForm).every(x => x === null || x === '' || x === 0);
     if (isEmpty) {
       this.openModal('ATENÇÃO!', 'Preencha pelo menos um valor para resgate.')
       return;
@@ -104,7 +100,6 @@ export class InvestmentRedeemComponent implements OnInit, OnDestroy {
       return;
     }
     this.openModal('Resgate efetuado com sucesso!', 'O valor solicitado estará em sua conta em até 5 dias úteis!', 'NOVO RESGATE');
-
   }
   
   openModal(title: string, message: string, txtConfirm?: string): void {
